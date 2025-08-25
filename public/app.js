@@ -1,35 +1,54 @@
+const names = ["Beatriz Constantino"];
 
+const sectionListElement = document.getElementById("list-container");
+const inputListAddElement = document.getElementById("list-add");
+const buttonListAddElement = document.getElementsByClassName("btn")[0];
 
-document.addEventListener("DOMContentLoaded", async () => {
+console.log(sectionListElement, inputListAddElement, buttonListAddElement);
 
-    const toDos = [
-        "Estudar HTML semântico",
-        "Praticar CSS básico",
-        "Revisar seletores CSS",
-        "Montar página com Flexbox",
-        "Adicionar responsividade com media queries",
-        "Estudar JavaScript básico",
-        "Praticar manipulação do DOM",
-        "Implementar evento de clique em botão",
-        "Criar lista dinâmica com JS",
-        "Estudar funções em JavaScript",
-        "Aprender sobre arrays e objetos",
-        "Praticar laços (for, while)",
-        "Estudar fetch() e requisições HTTP",
-        "Consumir API simples (ex: Pokédex)",
-        "Criar mini-projeto integrando tudo"
-    ];
+const ulElement = document.createElement("ul");
+ulElement.className = "list-names";
 
-    const buttonListAddElement = document.getElementsByClassName("btn")[0];
+sectionListElement.append(ulElement);
 
-    buttonListAddElement.addEventListener("click", (event) => {
-        event.preventDefault();
+names.forEach((name) => {
+  const liElement = document.createElement("li");
+  liElement.innerText = name;
 
-        // Adicionar event
+  const buttonDeleteElement = document.createElement("button");
+  buttonDeleteElement.innerHTML = "<strong>Excluir</strong>";
+  
+  buttonDeleteElement.addEventListener("click", (event) => {
+    const currentTargetElement = event.currentTarget;
+    const liParentElement = currentTargetElement.parentElement;
+    liParentElement.remove();
+  });
 
-    });
+  liElement.append(" ", buttonDeleteElement);
+  ulElement.append(liElement);
+});
 
-    // Codar aqui
+buttonListAddElement.addEventListener("click", (event) => {
+  event.preventDefault();
 
+  const inputValue = inputListAddElement.value.trim();
 
+  if (inputValue === "") {
+    return;
+  }
+
+  const liElement = document.createElement("li");
+  const buttonDeleteElement = document.createElement("button");
+
+  buttonDeleteElement.addEventListener("click", (event) => {
+    const currentTargetElement = event.currentTarget;
+    const liParentElement = currentTargetElement.parentElement;
+    liParentElement.remove();
+  });
+
+  buttonDeleteElement.innerHTML = "<strong>Excluir</strong>";
+  liElement.append(inputValue, "  ", buttonDeleteElement);
+  ulElement.append(liElement);
+
+  inputListAddElement.value = "";
 });
